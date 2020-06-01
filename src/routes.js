@@ -4,13 +4,12 @@ const texts = [
     "lepidopterology", "damp-dirt-dust", "musings-on-museums",
     "scrambled-ramblings"
 ];
-const etc = "https://raw.githubusercontent.com/keggsmurph21/etc/master";
+const bootstrapUrl =
+    "https://raw.githubusercontent.com/keggsmurph21/dotfiles/master/install";
 
 module.exports = (app) => {
     // redirects
-    app.get(
-        "/boot",
-        (req, res) => { res.redirect(`${etc}/installers/live/bootstrap.sh`); });
+    app.get("/bootstrap", (req, res) => { res.redirect(bootstrapUrl); });
     app.get("/catonline",
             (req, res) => { res.redirect("http://catonline.murp.us/"); });
 
