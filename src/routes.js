@@ -21,12 +21,6 @@ module.exports = (app) => {
                 (req, res) => { res.render(`texts/${text}.ejs`); });
     });
 
-    // sheets-cli oauth stuff?
-    app.get("/sheets-cli/about", (req, res) => {
-        console.log("GET /sheets-cli/about");
-        res.render("sheets-cli/about.ejs");
-    });
-
     app.get("/resume", (req, res) => {
         console.log("GET /resume");
         res.render("resume.ejs");
