@@ -1,6 +1,5 @@
 'use strict';
 
-const bot = require('./groupme-bot');
 const texts = [
 	'lepidopterology',
 	'damp-dirt-dust',
@@ -15,32 +14,8 @@ module.exports = (app) => {
 	app.get('/boot', (req, res) => {
 		res.redirect(`${etc}/installers/live/bootstrap.sh`);
 	});
-	app.get('/botmaker', (req, res) => {
-		res.redirect(`${etc}/make-groupme-bot`);
-	});
 	app.get('/catonline', (req, res) => {
 		res.redirect('http://catonline.murp.us/');
-	});
-
-	// WhatsApp bot callback
-	app.put('/bot/identify', (req, res) => {
-		console.log('PUT /bot/identify');
-		const data = bot.identify(req.body);
-		res.status(data.code).json(data.body);
-	});
-	app.post('/bot/callback', (req, res) => {
-		console.log('POST /bot/callback');
-		const data = bot.callback(req.body);
-		res.status(data.code).json(data.body);
-	});
-	app.get('/bot/queue', (req, res) => {
-		const data = bot.queue(req.body);
-		res.status(data.code).json(data.body);
-	});
-	app.post('/bot/process', (req, res) => {
-		console.log('POST /bot/process');
-		const data = bot.process(req.body);
-		res.status(data.code).json(data.body);
 	});
 
 	// texts :)
