@@ -1,0 +1,35 @@
+#!/bin/bash
+set -euo pipefail
+
+VERSION=2.27.47
+CHECKSUM=8ed2abd1bb84f7663c5cd220b4be4324a8a5648b372f6074946f2a7c56b553d5
+DESTDIR="$(git rev-parse --show-toplevel)/.cache/aws/$VERSION"
+EXE="$DESTDIR/bin/aws"
+
+if [[ ! -x "$EXE" ]]; then
+    set -x
+
+    tmpdir="$(mktemp --directory)"
+    pushd "$tmpdir"
+
+    # https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#getting-started-install-instructions
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-$VERSION.zip" -o awscliv2.zip
+    echo "$CHECKSUM  awscliv2.zip" \
+        | sha256sum --check
+
+    unzip -q awscliv2.zip
+
+    ./aws/install \
+        --bin-dir "$DESTDIR/bin" \
+        --install-dir "$DESTDIR/lib"
+
+    popd
+    rm -rf "$tmpdir"
+
+    set +x
+fi
+
+export AWS_CONFIG_FILE="$HOME/.aws/murp.us.config"
+export AWS_SHARED_CREDENTIALS_FILE="$HOME/.aws/murp.us.credentials"
+
+exec "$EXE" "$@"

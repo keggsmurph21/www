@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+"$ROOT/bin/aws" s3 cp --recursive "$ROOT/public" s3://murp-us-public/

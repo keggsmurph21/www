@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+python3 -m http.server \
+    --directory "$ROOT/public" \
+    3000
